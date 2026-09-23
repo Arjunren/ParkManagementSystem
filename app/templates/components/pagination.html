@@ -1,0 +1,9 @@
+{% if page.pages > 1 %}
+<nav class="mt-6 flex items-center justify-between text-sm" aria-label="Pagination">
+  <span class="text-slate-500">Page {{ page.page }} of {{ page.pages }} · {{ page.total }} records</span>
+  <div class="flex gap-2">
+    {% if page.has_prev %}{% set prev_args = request.args.to_dict() %}{% set _ = prev_args.update({'page': page.prev_num}) %}<a class="btn-secondary" href="{{ url_for(request.endpoint, **prev_args) }}">Previous</a>{% endif %}
+    {% if page.has_next %}{% set next_args = request.args.to_dict() %}{% set _ = next_args.update({'page': page.next_num}) %}<a class="btn-secondary" href="{{ url_for(request.endpoint, **next_args) }}">Next</a>{% endif %}
+  </div>
+</nav>
+{% endif %}

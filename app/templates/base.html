@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>{% block title %}ParkFlow{% endblock %} · {{ facility_name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+{% if current_user.is_authenticated %}
+<div class="min-h-screen lg:flex">
+  <div id="sidebar-overlay" class="fixed inset-0 z-30 hidden bg-slate-950/50 lg:hidden"></div>
+  <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-72 -translate-x-full overflow-y-auto bg-slate-950 text-slate-200 transition-transform lg:static lg:translate-x-0">
+    <div class="flex h-20 items-center gap-3 border-b border-white/10 px-6">
+      <span class="grid h-10 w-10 place-items-center rounded-xl bg-teal-400 font-black text-slate-950">P</span>
+      <div><p class="font-bold text-white">ParkFlow</p><p class="text-xs text-slate-400">Operations console</p></div>
+    </div>
+    <nav class="space-y-1 p-4 text-sm" aria-label="Main navigation">
+      <a class="nav-link" href="{{ url_for('dashboard.index') }}">Dashboard</a>
+      {% if current_user.has_role('admin', 'attendant') %}
+      <p class="nav-heading">Parking</p>
+      <a class="nav-link" href="{{ url_for('parking.entry') }}">Vehicle entry</a>
+      <a class="nav-link" href="{{ url_for('parking.active') }}">Active vehicles</a>
+      <a class="nav-link" href="{{ url_for('parking.history') }}">Parking history</a>
+      {% else %}
+      <a class="nav-link" href="{{ url_for('parking.history') }}">My parking history</a>
+      {% endif %}
+      {% if current_user.has_role('admin') %}
+      <p class="nav-heading">Management</p>
+      <a class="nav-link" href="{{ url_for('admin.areas') }}">Parking areas</a>
+      <a class="nav-link" href="{{ url_for('admin.slots') }}">Parking slots</a>
+      <a class="nav-link" href="{{ url_for('admin.vehicle_types') }}">Vehicle types</a>
+      <a class="nav-link" href="{{ url_for('admin.rates') }}">Parking rates</a>
+      <a class="nav-link" href="{{ url_for('admin.payment_methods') }}">Payment methods</a>
+      <a class="nav-link" href="{{ url_for('admin.payments') }}">Payments</a>
+      <a class="nav-link" href="{{ url_for('reports.index') }}">Reports</a>
+      <p class="nav-heading">Administration</p>
+      <a class="nav-link" href="{{ url_for('admin.users') }}">Users</a>
+      <a class="nav-link" href="{{ url_for('admin.audit_logs') }}">Audit logs</a>
+      <a class="nav-link" href="{{ url_for('admin.settings') }}">Settings</a>
+      {% endif %}
+    </nav>
+  </aside>
+  <div class="min-w-0 flex-1">
+    <header class="sticky top-0 z-20 flex h-20 items-center justify-between border-b border-slate-200 bg-white/95 px-4 backdrop-blur sm:px-8">
+      <button id="sidebar-toggle" class="btn-secondary lg:hidden" type="button" aria-controls="sidebar" aria-expanded="false">Menu</button>
+      <div class="hidden sm:block"><p class="text-sm font-semibold">{{ facility_name }}</p><p class="text-xs text-slate-500">Live parking operations</p></div>
+      <div class="flex items-center gap-3">
+        <a class="btn-secondary" href="{{ url_for('auth.change_password') }}">Account</a>
+        <form method="post" action="{{ url_for('auth.logout') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="btn-secondary" type="submit">Sign out</button>
+        </form>
+      </div>
+    </header>
+    <main class="p-4 sm:p-8">
+      {% include 'components/flashes.html' %}
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</div>
+{% else %}
+<main class="grid min-h-screen place-items-center bg-slate-950 px-4 py-12">
+  <div class="w-full max-w-md">
+    <div class="mb-8 text-center text-white"><p class="text-3xl font-black">Park<span class="text-teal-400">Flow</span></p><p class="mt-2 text-sm text-slate-400">Secure parking operations</p></div>
+    {% include 'components/flashes.html' %}
+    {% block auth_content %}{% endblock %}
+  </div>
+</main>
+{% endif %}
+</body>
+</html>

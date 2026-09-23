@@ -1,0 +1,11 @@
+{% extends 'base.html' %}{% block title %}Vehicle entry{% endblock %}
+{% block content %}<div class="page-heading"><div><p class="eyebrow">Parking</p><h1>Register vehicle entry</h1><p>Assign a verified available slot and issue a parking ticket.</p></div></div>
+<section class="card max-w-4xl"><form class="form-grid" method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<label class="field-label">Plate number<input class="field uppercase" name="plate_number" maxlength="20" required autofocus placeholder="ABC 1234"></label>
+<label class="field-label">Vehicle type<select class="field" name="vehicle_type_id" required><option value="">Select type</option>{% for item in vehicle_types %}<option value="{{ item.id }}">{{ item.name }}</option>{% endfor %}</select></label>
+<label class="field-label">Parking slot<select class="field" name="slot_id" required><option value="">Select available slot</option>{% for slot in slots %}<option value="{{ slot.id }}">{{ slot.code }} · {{ slot.area.name }}</option>{% endfor %}</select></label>
+<label class="field-label">Driver / customer name<input class="field" name="owner_name" maxlength="120"></label>
+<label class="field-label">Contact information<input class="field" name="contact" maxlength="100"></label>
+<label class="field-label sm:col-span-2">Notes<textarea class="field" name="notes" maxlength="500" rows="3"></textarea></label>
+<div class="sm:col-span-2"><button class="btn-primary" type="submit" {% if not slots %}disabled{% endif %}>Check in vehicle</button>{% if not slots %}<p class="mt-2 text-sm text-rose-600">No parking slots are currently available.</p>{% endif %}</div>
+</form></section>{% endblock %}

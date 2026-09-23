@@ -1,0 +1,11 @@
+{
+  "name": "parkflow-ui",
+  "private": true,
+  "scripts": {
+    "css:dev": "tailwindcss -i ./app/static/css/input.css -o ./app/static/css/output.css --watch",
+    "css:build": "tailwindcss -i ./app/static/css/input.css -o ./app/static/css/output.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}{% block title %}Create account{% endblock %}
+{% block auth_content %}
+<section class="auth-card"><h1 class="text-2xl font-bold">Customer account</h1><p class="mt-1 text-sm text-slate-500">Create a limited self-service account.</p>
+<form class="mt-6 space-y-4" method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<label class="field-label">Full name<input class="field" name="full_name" maxlength="120" autocomplete="name"></label>
+<label class="field-label">Username<input class="field" name="username" minlength="3" maxlength="50" required autocomplete="username"></label>
+<label class="field-label">Email<input class="field" type="email" name="email" maxlength="254" required autocomplete="email"></label>
+<label class="field-label">Password<input class="field" type="password" name="password" minlength="10" required autocomplete="new-password"><span class="field-help">10+ characters with uppercase, lowercase, number, and symbol.</span></label>
+<button class="btn-primary w-full" type="submit">Create account</button></form>
+<p class="mt-5 text-center text-sm"><a class="text-link" href="{{ url_for('auth.login') }}">Back to sign in</a></p></section>
+{% endblock %}

@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 { @apply text-3xl font-black tracking-tight text-slate-950; }
+  h2 { @apply text-lg font-bold text-slate-950; }
+  table { @apply w-full min-w-[720px] border-collapse text-left text-sm; }
+  th { @apply border-b border-slate-200 bg-slate-50 px-4 py-3 text-xs font-bold uppercase tracking-wider text-slate-500; }
+  td { @apply border-b border-slate-100 px-4 py-4 align-middle text-slate-700; }
+  td small { @apply mt-1 block text-xs font-normal text-slate-500; }
+  button:disabled { @apply cursor-not-allowed opacity-50; }
+}
+
+@layer components {
+  .nav-heading { @apply px-3 pb-1 pt-6 text-[10px] font-black uppercase tracking-[.2em] text-slate-500; }
+  .nav-link { @apply block rounded-lg px-3 py-2.5 font-medium text-slate-300 transition hover:bg-white/10 hover:text-white; }
+  .page-heading { @apply mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end; }
+  .page-heading p:not(.eyebrow) { @apply mt-1 text-sm text-slate-500; }
+  .eyebrow { @apply mb-1 text-xs font-black uppercase tracking-[.18em] text-teal-600; }
+  .card { @apply rounded-2xl border border-slate-200 bg-white p-5 shadow-card sm:p-6; }
+  .card-heading { @apply mb-5 flex items-center justify-between gap-4; }
+  .auth-card { @apply rounded-2xl border border-white/10 bg-white p-7 shadow-2xl; }
+  .btn-primary { @apply inline-flex min-h-10 items-center justify-center rounded-lg bg-teal-500 px-4 py-2 text-sm font-bold text-slate-950 transition hover:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2; }
+  .btn-secondary { @apply inline-flex min-h-10 items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-teal-500; }
+  .text-link { @apply font-semibold text-teal-700 hover:text-teal-600 hover:underline; }
+  .field-label { @apply block text-sm font-semibold text-slate-700; }
+  .field { @apply mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-normal text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20; }
+  .field-sm { @apply mt-0 min-w-32 py-2; }
+  .field-help { @apply mt-1 block text-xs font-normal text-slate-500; }
+  .form-grid { @apply grid gap-4 sm:grid-cols-2; }
+  .filter-bar { @apply mb-5 flex flex-col gap-3 sm:flex-row sm:items-end; }
+  .filter-bar > .field { @apply mt-0; }
+  .table-wrap { @apply -mx-5 overflow-x-auto sm:-mx-6; }
+  .table-wrap table { @apply sm:mx-0; }
+  .table-wrap th:first-child, .table-wrap td:first-child { @apply pl-5 sm:pl-6; }
+  .table-wrap th:last-child, .table-wrap td:last-child { @apply pr-5 sm:pr-6; }
+  .stats-grid { @apply grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6; }
+  .stat-card { @apply rounded-2xl border border-slate-200 bg-white p-5 shadow-card; }
+  .stat-card p { @apply text-sm font-medium text-slate-500; }
+  .stat-card strong { @apply mt-2 block text-3xl font-black text-slate-950; }
+  .stat-good { @apply border-teal-200 bg-teal-50; }
+  .stat-good strong { @apply text-teal-700; }
+  .stat-warn { @apply border-amber-200 bg-amber-50; }
+  .stat-warn strong { @apply text-amber-700; }
+  .metric { @apply rounded-xl border border-slate-100 bg-slate-50 p-4; }
+  .metric span { @apply text-sm text-slate-500; }
+  .metric strong { @apply mt-1 block text-2xl font-black; }
+  .badge { @apply inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-black uppercase tracking-wide text-slate-600; }
+  .badge-active, .badge-available, .badge-completed { @apply bg-teal-100 text-teal-800; }
+  .badge-occupied, .badge-reserved { @apply bg-amber-100 text-amber-800; }
+  .badge-maintenance, .badge-disabled, .badge-cancelled { @apply bg-rose-100 text-rose-800; }
+  .empty-state { @apply py-10 text-center text-sm text-slate-500; }
+  .toast { @apply flex items-start justify-between gap-4 rounded-xl border px-4 py-3 text-sm font-medium shadow-sm; }
+  .toast-success { @apply border-teal-200 bg-teal-50 text-teal-900; }
+  .toast-error { @apply border-rose-200 bg-rose-50 text-rose-900; }
+  .toast-close { @apply text-xl leading-none opacity-60 hover:opacity-100; }
+  .detail-grid { @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3; }
+  .detail-grid span { @apply block text-xs font-bold uppercase tracking-wide text-slate-500; }
+  .detail-grid strong { @apply mt-1 block text-base text-slate-950; }
+  .receipt { @apply mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white p-8 shadow-card; }
+  .receipt header { @apply mb-6 border-b border-dashed border-slate-300 pb-6 text-center; }
+  .receipt header p:last-child { @apply mt-1 text-sm text-slate-500; }
+  .receipt-row { @apply flex justify-between gap-6 border-b border-slate-100 py-3 text-sm; }
+  .receipt-row span { @apply text-slate-500; }
+  .receipt-row strong { @apply text-right text-slate-950; }
+  .receipt footer { @apply mt-6 border-t border-dashed border-slate-300 pt-6 text-center text-xs text-slate-500; }
+  .ranking { @apply flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 text-sm; }
+  .ranking strong { @apply text-slate-950; }
+}
+
+@media print {
+  body { background: white !important; }
+  aside, header, .no-print, .toast { display: none !important; }
+  main { padding: 0 !important; }
+  .receipt { border: 0 !important; box-shadow: none !important; }
+}
